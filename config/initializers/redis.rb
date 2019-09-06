@@ -1,0 +1,1 @@
+$redis = Redis::Namespace.new("thermostat_readings", :redis => Redis.new)

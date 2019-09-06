@@ -1,0 +1,27 @@
+<h2 align="center"> Thermostat Stats </h2>
+<% @output.each do |i| %>
+  <table cellspacing="0" cellpadding="0" width="80%" align="center" style="background-color:#FFF; color:#666666; font-family: avenir, Arial, 'Times New Roman', Times, serif;">
+    <thead>
+    <tr style="padding-top:10px; padding-bottom:10px; background-color:#f5f5f5;">
+      <th>Type</th>
+      <th>Avg.</th>
+      <th>Minimum</th>
+      <th>Maximum</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr style="background-color:#32CD32; height:1px; font-size:0px;">
+      <td colspan="5">&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;padding: 5px"><%= i.keys.first %></td>
+      <td style="text-align: center; padding: 5px;"><%= i.values.first["avg"] %></td>
+      <td style="text-align: center;padding: 5px"><%= i.values.first["min"] %></td>
+      <td style="text-align: center;padding: 5px"><%= i.values.first["max"] %></td>
+      <td style="text-align: center;padding: 5px"><%= link_to "Thermostat Readings", controller: "readings", action: "index" %></td>
+    </tr>
+    </tbody><br/>
+  </table>
+<% end %>
+

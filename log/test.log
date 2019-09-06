@@ -1,0 +1,1395 @@
+  [1m[35m (144.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "thermostat_readings_test"[0m
+  [1m[35m (366.9ms)[0m  [1m[35mCREATE DATABASE "thermostat_readings_test" ENCODING = 'utf8'[0m
+  [1m[35mSQL (1.9ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "readings" CASCADE[0m
+  [1m[35m (6.0ms)[0m  [1m[35mCREATE TABLE "readings" ("id" bigserial primary key, "thermostat_id" bigint, "tracking_number" integer, "temperature" float, "humidity" float, "battery_charge" float, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_readings_on_thermostat_id" ON "readings"  ("thermostat_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "thermostats" CASCADE[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE TABLE "thermostats" ("id" bigserial primary key, "household_token" character varying, "location" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20190905094609)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20190905093127);
+
+[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2019-09-05 15:45:13.471950"], ["updated_at", "2019-09-05 15:45:13.471950"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (1.1ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+Processing by ReadingsController#index as HTML
+  Rendering readings/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered readings/index.html.erb within layouts/application (0.5ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 20ms (Views: 10.4ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "humidity"=>"28", "temperature"=>"55.4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"abc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "abc"], ["LIMIT", 1]]
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 8ms (Views: 0.2ms | ActiveRecord: 2.6ms)
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "95db2699-4b73-4463-b30a-69360e289760"], ["LIMIT", 1]]
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "95db2699-4b73-4463-b30a-69360e289760"], ["location", "Location1"], ["created_at", "2019-09-05 16:44:02.247149"], ["updated_at", "2019-09-05 16:44:02.247149"]]
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#index as HTML
+  Rendering readings/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered readings/index.html.erb within layouts/application (0.3ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 13ms (Views: 10.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "834a6a61-3f10-44bb-a9c8-7fbecfbd71a6"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "834a6a61-3f10-44bb-a9c8-7fbecfbd71a6"], ["location", "Location1"], ["created_at", "2019-09-05 16:44:02.270599"], ["updated_at", "2019-09-05 16:44:02.270599"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "humidity"=>"28", "temperature"=>"55.4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "a9694461-b27b-42a2-8a61-dbd958fa82d5"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "a9694461-b27b-42a2-8a61-dbd958fa82d5"], ["location", "Location1"], ["created_at", "2019-09-05 16:44:02.289698"], ["updated_at", "2019-09-05 16:44:02.289698"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"abc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "abc"], ["LIMIT", 1]]
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 4ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "a1b39e51-6356-4ef2-a826-77acfb22b549"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "a1b39e51-6356-4ef2-a826-77acfb22b549"], ["location", "Location1"], ["created_at", "2019-09-05 16:44:02.298020"], ["updated_at", "2019-09-05 16:44:02.298020"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"a1b39e51-6356-4ef2-a826-77acfb22b549"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "a1b39e51-6356-4ef2-a826-77acfb22b549"], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "8a556ec1-0f0c-4faa-9929-2c27b500915c"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "8a556ec1-0f0c-4faa-9929-2c27b500915c"], ["location", "Location1"], ["created_at", "2019-09-05 16:44:02.305224"], ["updated_at", "2019-09-05 16:44:02.305224"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"8a556ec1-0f0c-4faa-9929-2c27b500915c", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "8a556ec1-0f0c-4faa-9929-2c27b500915c"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+Unpermitted parameter: :household_token
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 200 OK in 909ms (Views: 0.2ms | ActiveRecord: 4.5ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "0e5638e9-4726-49f1-a5d2-daef821b3b2b"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "0e5638e9-4726-49f1-a5d2-daef821b3b2b"], ["location", "Location1"], ["created_at", "2019-09-05 16:44:03.218882"], ["updated_at", "2019-09-05 16:44:03.218882"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "152eb2c5-f174-43d2-ab5d-93775642b4f8"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "152eb2c5-f174-43d2-ab5d-93775642b4f8"], ["location", "Location1"], ["created_at", "2019-09-05 16:44:03.223270"], ["updated_at", "2019-09-05 16:44:03.223270"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "4c872cb7-f2ce-4556-b069-9bab41cbef47"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "4c872cb7-f2ce-4556-b069-9bab41cbef47"], ["location", "Location1"], ["created_at", "2019-09-05 16:45:25.183921"], ["updated_at", "2019-09-05 16:45:25.183921"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#index as HTML
+  Rendering readings/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered readings/index.html.erb within layouts/application (0.2ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 9ms (Views: 7.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "7617a313-6a9c-4cea-9e57-9a19d685658c"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "7617a313-6a9c-4cea-9e57-9a19d685658c"], ["location", "Location1"], ["created_at", "2019-09-05 16:45:25.202187"], ["updated_at", "2019-09-05 16:45:25.202187"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "humidity"=>"28", "temperature"=>"55.4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "80c175f9-4594-49f3-9b65-9ff5e4fec1ae"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "80c175f9-4594-49f3-9b65-9ff5e4fec1ae"], ["location", "Location1"], ["created_at", "2019-09-05 16:45:25.221969"], ["updated_at", "2019-09-05 16:45:25.221969"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"abc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "abc"], ["LIMIT", 1]]
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 3ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "d1452a0f-4acc-48b9-8080-51cc869cf09c"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "d1452a0f-4acc-48b9-8080-51cc869cf09c"], ["location", "Location1"], ["created_at", "2019-09-05 16:45:25.230805"], ["updated_at", "2019-09-05 16:45:25.230805"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"d1452a0f-4acc-48b9-8080-51cc869cf09c"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "d1452a0f-4acc-48b9-8080-51cc869cf09c"], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "1a23658a-39a7-40ba-9408-b4e3770d4ee5"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "1a23658a-39a7-40ba-9408-b4e3770d4ee5"], ["location", "Location1"], ["created_at", "2019-09-05 16:45:25.238378"], ["updated_at", "2019-09-05 16:45:25.238378"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"1a23658a-39a7-40ba-9408-b4e3770d4ee5", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "1a23658a-39a7-40ba-9408-b4e3770d4ee5"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+Unpermitted parameter: :household_token
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 200 OK in 749ms (Views: 0.2ms | ActiveRecord: 5.2ms)
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "83429f2a-09bd-463a-92da-4c92d70e0fe0"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "83429f2a-09bd-463a-92da-4c92d70e0fe0"], ["location", "Location1"], ["created_at", "2019-09-05 16:45:25.993280"], ["updated_at", "2019-09-05 16:45:25.993280"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "f116842e-5947-435e-b782-37708103475c"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "f116842e-5947-435e-b782-37708103475c"], ["location", "Location1"], ["created_at", "2019-09-05 16:45:25.996120"], ["updated_at", "2019-09-05 16:45:25.996120"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (7.4ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 14], ["tracking_number", 3], ["temperature", 23.08], ["humidity", 87.07], ["battery_charge", 20.06], ["created_at", "2019-09-05 16:45:25.997638"], ["updated_at", "2019-09-05 16:45:25.997638"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"id"=>"4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "0d65d4ff-93e5-4383-869d-780be668f5cd"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "0d65d4ff-93e5-4383-869d-780be668f5cd"], ["location", "Location1"], ["created_at", "2019-09-05 16:45:26.010960"], ["updated_at", "2019-09-05 16:45:26.010960"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "f0f8c80d-c0e0-4026-94a8-d0054e9ac5c3"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "f0f8c80d-c0e0-4026-94a8-d0054e9ac5c3"], ["location", "Location1"], ["created_at", "2019-09-05 16:45:26.013600"], ["updated_at", "2019-09-05 16:45:26.013600"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 16], ["tracking_number", 5], ["temperature", 94.05], ["humidity", 79.08], ["battery_charge", 16.05], ["created_at", "2019-09-05 16:45:26.015113"], ["updated_at", "2019-09-05 16:45:26.015113"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"household_token"=>"0d65d4ff-93e5-4383-869d-780be668f5cd", "id"=>"6"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "0d65d4ff-93e5-4383-869d-780be668f5cd"], ["LIMIT", 1]]
+  [1m[36mReading Load (0.3ms)[0m  [1m[34mSELECT  "readings".* FROM "readings" WHERE "readings"."tracking_number" = $1 LIMIT $2[0m  [["tracking_number", 6], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "bfb44031-9197-4ec6-b61f-f1a191b2e8d0"], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "bfb44031-9197-4ec6-b61f-f1a191b2e8d0"], ["location", "Location1"], ["created_at", "2019-09-05 16:48:23.338527"], ["updated_at", "2019-09-05 16:48:23.338527"]]
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#index as HTML
+  Rendering readings/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered readings/index.html.erb within layouts/application (0.3ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 13ms (Views: 9.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "f07326d0-2fd4-4670-8298-3a66ab22a9e9"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "f07326d0-2fd4-4670-8298-3a66ab22a9e9"], ["location", "Location1"], ["created_at", "2019-09-05 16:48:23.362192"], ["updated_at", "2019-09-05 16:48:23.362192"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "humidity"=>"28", "temperature"=>"55.4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "b90b9850-bac4-47bc-a4b5-04e2c772226b"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "b90b9850-bac4-47bc-a4b5-04e2c772226b"], ["location", "Location1"], ["created_at", "2019-09-05 16:48:23.384860"], ["updated_at", "2019-09-05 16:48:23.384860"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"abc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "abc"], ["LIMIT", 1]]
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 4ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "e1643661-e433-4f8f-8ddb-2c2baf012ba5"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "e1643661-e433-4f8f-8ddb-2c2baf012ba5"], ["location", "Location1"], ["created_at", "2019-09-05 16:48:23.394109"], ["updated_at", "2019-09-05 16:48:23.394109"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"e1643661-e433-4f8f-8ddb-2c2baf012ba5"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "e1643661-e433-4f8f-8ddb-2c2baf012ba5"], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "14f0035f-820a-431f-8ef4-699e4c2ab095"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "14f0035f-820a-431f-8ef4-699e4c2ab095"], ["location", "Location1"], ["created_at", "2019-09-05 16:48:23.401488"], ["updated_at", "2019-09-05 16:48:23.401488"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"14f0035f-820a-431f-8ef4-699e4c2ab095", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "14f0035f-820a-431f-8ef4-699e4c2ab095"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+Unpermitted parameter: :household_token
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."id" = $1 LIMIT $2[0m  [["id", 21], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 200 OK in 895ms (Views: 0.2ms | ActiveRecord: 4.6ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "6d9a6332-7e10-4ed0-ad49-0e5677985f0b"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "6d9a6332-7e10-4ed0-ad49-0e5677985f0b"], ["location", "Location1"], ["created_at", "2019-09-05 16:48:24.301589"], ["updated_at", "2019-09-05 16:48:24.301589"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "32299e1a-1555-4b39-853c-6de6483a65ad"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "32299e1a-1555-4b39-853c-6de6483a65ad"], ["location", "Location1"], ["created_at", "2019-09-05 16:48:24.304313"], ["updated_at", "2019-09-05 16:48:24.304313"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 23], ["tracking_number", 8], ["temperature", 92.09], ["humidity", 37.02], ["battery_charge", 58.05], ["created_at", "2019-09-05 16:48:24.305763"], ["updated_at", "2019-09-05 16:48:24.305763"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"id"=>"9"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "3ec23edf-fae2-4e71-83d9-034085aa7a10"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "3ec23edf-fae2-4e71-83d9-034085aa7a10"], ["location", "Location1"], ["created_at", "2019-09-05 16:48:24.312043"], ["updated_at", "2019-09-05 16:48:24.312043"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "a90464aa-0475-48e1-a808-b0e7732393b8"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "a90464aa-0475-48e1-a808-b0e7732393b8"], ["location", "Location1"], ["created_at", "2019-09-05 16:48:24.315313"], ["updated_at", "2019-09-05 16:48:24.315313"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 25], ["tracking_number", 10], ["temperature", 14.06], ["humidity", 45.02], ["battery_charge", 44.09], ["created_at", "2019-09-05 16:48:24.316857"], ["updated_at", "2019-09-05 16:48:24.316857"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"household_token"=>"3ec23edf-fae2-4e71-83d9-034085aa7a10", "id"=>"11"}
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "3ec23edf-fae2-4e71-83d9-034085aa7a10"], ["LIMIT", 1]]
+  [1m[36mReading Load (0.3ms)[0m  [1m[34mSELECT  "readings".* FROM "readings" WHERE "readings"."tracking_number" = $1 LIMIT $2[0m  [["tracking_number", 11], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "280a0c47-1e99-41eb-ad86-043c16df22ff"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "280a0c47-1e99-41eb-ad86-043c16df22ff"], ["location", "Location1"], ["created_at", "2019-09-05 16:50:13.564390"], ["updated_at", "2019-09-05 16:50:13.564390"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#index as HTML
+  Rendering readings/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered readings/index.html.erb within layouts/application (0.2ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 11ms (Views: 8.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "e12136e4-c975-4b51-b62b-54ceeee6dad6"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "e12136e4-c975-4b51-b62b-54ceeee6dad6"], ["location", "Location1"], ["created_at", "2019-09-05 16:50:13.584866"], ["updated_at", "2019-09-05 16:50:13.584866"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "humidity"=>"28", "temperature"=>"55.4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "00b633fa-e26c-48d0-87b2-cde0cf64b4da"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "00b633fa-e26c-48d0-87b2-cde0cf64b4da"], ["location", "Location1"], ["created_at", "2019-09-05 16:50:13.604818"], ["updated_at", "2019-09-05 16:50:13.604818"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"abc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "abc"], ["LIMIT", 1]]
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 4ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "b8d21a1f-8862-4ff7-ab02-2b1259339f90"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "b8d21a1f-8862-4ff7-ab02-2b1259339f90"], ["location", "Location1"], ["created_at", "2019-09-05 16:50:13.616794"], ["updated_at", "2019-09-05 16:50:13.616794"]]
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"b8d21a1f-8862-4ff7-ab02-2b1259339f90"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "b8d21a1f-8862-4ff7-ab02-2b1259339f90"], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 400 Bad Request in 3ms (Views: 0.3ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "c88a121a-72ba-41e3-9494-505c40af6b1a"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "c88a121a-72ba-41e3-9494-505c40af6b1a"], ["location", "Location1"], ["created_at", "2019-09-05 16:50:13.625624"], ["updated_at", "2019-09-05 16:50:13.625624"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"c88a121a-72ba-41e3-9494-505c40af6b1a", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "c88a121a-72ba-41e3-9494-505c40af6b1a"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+Unpermitted parameter: :household_token
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."id" = $1 LIMIT $2[0m  [["id", 30], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 200 OK in 922ms (Views: 0.2ms | ActiveRecord: 4.9ms)
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "fb45218b-4830-4e43-8cc4-08c0532d6dd9"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "fb45218b-4830-4e43-8cc4-08c0532d6dd9"], ["location", "Location1"], ["created_at", "2019-09-05 16:50:14.553495"], ["updated_at", "2019-09-05 16:50:14.553495"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "77c99e6d-8e6f-4fb9-bc02-a16f1db0dc3d"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "77c99e6d-8e6f-4fb9-bc02-a16f1db0dc3d"], ["location", "Location1"], ["created_at", "2019-09-05 16:50:14.556751"], ["updated_at", "2019-09-05 16:50:14.556751"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 32], ["tracking_number", 13], ["temperature", 73.02], ["humidity", 59.02], ["battery_charge", 34.01], ["created_at", "2019-09-05 16:50:14.558241"], ["updated_at", "2019-09-05 16:50:14.558241"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"id"=>"14"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "aef30577-2a37-475b-be9c-77db5549a80a"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "aef30577-2a37-475b-be9c-77db5549a80a"], ["location", "Location1"], ["created_at", "2019-09-05 16:50:14.563990"], ["updated_at", "2019-09-05 16:50:14.563990"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "6b652967-352e-4702-8aaf-e4ed7ee80d6b"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "6b652967-352e-4702-8aaf-e4ed7ee80d6b"], ["location", "Location1"], ["created_at", "2019-09-05 16:50:14.566769"], ["updated_at", "2019-09-05 16:50:14.566769"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 34], ["tracking_number", 15], ["temperature", 24.05], ["humidity", 61.09], ["battery_charge", 95.03], ["created_at", "2019-09-05 16:50:14.568484"], ["updated_at", "2019-09-05 16:50:14.568484"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"household_token"=>"aef30577-2a37-475b-be9c-77db5549a80a", "id"=>"16"}
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "aef30577-2a37-475b-be9c-77db5549a80a"], ["LIMIT", 1]]
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  "readings".* FROM "readings" WHERE "readings"."tracking_number" = $1 LIMIT $2[0m  [["tracking_number", 16], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "96a58c7c-50f7-4059-b31d-7e038ca4d769"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "b0a3c058-f3f7-4f1d-8f9a-ac229fd2fc58"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "2ad7277c-e8e0-4e37-a9a0-ab0cb744f710"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "2ad7277c-e8e0-4e37-a9a0-ab0cb744f710"], ["location", "Location1"], ["created_at", "2019-09-05 16:55:22.519000"], ["updated_at", "2019-09-05 16:55:22.519000"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#index as HTML
+  Rendering readings/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered readings/index.html.erb within layouts/application (0.2ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 9ms (Views: 7.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "67e83f4d-9eb7-4232-8693-fe55d8424294"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "67e83f4d-9eb7-4232-8693-fe55d8424294"], ["location", "Location1"], ["created_at", "2019-09-05 16:55:22.537747"], ["updated_at", "2019-09-05 16:55:22.537747"]]
+  [1m[35m (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "humidity"=>"28", "temperature"=>"55.4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "b28c3f3e-803e-4a70-b5cb-77c1aee5f398"], ["LIMIT", 1]]
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "b28c3f3e-803e-4a70-b5cb-77c1aee5f398"], ["location", "Location1"], ["created_at", "2019-09-05 16:55:22.551032"], ["updated_at", "2019-09-05 16:55:22.551032"]]
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"abc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "abc"], ["LIMIT", 1]]
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 11ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "7644d43e-2e15-4cce-a63b-33c9a7ded00b"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "7644d43e-2e15-4cce-a63b-33c9a7ded00b"], ["location", "Location1"], ["created_at", "2019-09-05 16:55:22.568632"], ["updated_at", "2019-09-05 16:55:22.568632"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"7644d43e-2e15-4cce-a63b-33c9a7ded00b"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "7644d43e-2e15-4cce-a63b-33c9a7ded00b"], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "a76578fe-7edd-4e7e-8030-4ec64dae31ce"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "a76578fe-7edd-4e7e-8030-4ec64dae31ce"], ["location", "Location1"], ["created_at", "2019-09-05 16:55:22.576111"], ["updated_at", "2019-09-05 16:55:22.576111"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"a76578fe-7edd-4e7e-8030-4ec64dae31ce", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "a76578fe-7edd-4e7e-8030-4ec64dae31ce"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+Unpermitted parameter: :household_token
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."id" = $1 LIMIT $2[0m  [["id", 39], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 200 OK in 758ms (Views: 0.2ms | ActiveRecord: 5.2ms)
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "d9753a29-074e-4cd1-a283-6aad7f95517d"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "d9753a29-074e-4cd1-a283-6aad7f95517d"], ["location", "Location1"], ["created_at", "2019-09-05 16:55:23.340573"], ["updated_at", "2019-09-05 16:55:23.340573"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "96340ab8-7977-4e6d-98cb-5616cb10f323"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "96340ab8-7977-4e6d-98cb-5616cb10f323"], ["location", "Location1"], ["created_at", "2019-09-05 16:55:23.343608"], ["updated_at", "2019-09-05 16:55:23.343608"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 41], ["tracking_number", 19], ["temperature", 97.01], ["humidity", 64.09], ["battery_charge", 67.04], ["created_at", "2019-09-05 16:55:23.345192"], ["updated_at", "2019-09-05 16:55:23.345192"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"id"=>"20"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "9847508a-4a7d-4372-b1fd-08beeffe6ec7"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "9847508a-4a7d-4372-b1fd-08beeffe6ec7"], ["location", "Location1"], ["created_at", "2019-09-05 16:55:23.351131"], ["updated_at", "2019-09-05 16:55:23.351131"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "a9ae9169-64d0-4049-997d-cec9188c5486"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "a9ae9169-64d0-4049-997d-cec9188c5486"], ["location", "Location1"], ["created_at", "2019-09-05 16:55:23.354308"], ["updated_at", "2019-09-05 16:55:23.354308"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 43], ["tracking_number", 21], ["temperature", 16.04], ["humidity", 78.08], ["battery_charge", 74.07], ["created_at", "2019-09-05 16:55:23.355787"], ["updated_at", "2019-09-05 16:55:23.355787"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"household_token"=>"9847508a-4a7d-4372-b1fd-08beeffe6ec7", "id"=>"22"}
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "9847508a-4a7d-4372-b1fd-08beeffe6ec7"], ["LIMIT", 1]]
+  [1m[36mReading Load (0.3ms)[0m  [1m[34mSELECT  "readings".* FROM "readings" WHERE "readings"."tracking_number" = $1 LIMIT $2[0m  [["tracking_number", 22], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "f3351e46-37fb-4f48-bfcc-ad299e4d4610"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "a5187a7e-6e76-4fa2-8220-d02476304e73"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "5ba1ed7e-8971-444c-8a25-d477eb7bdc92"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "5ba1ed7e-8971-444c-8a25-d477eb7bdc92"], ["location", "Location1"], ["created_at", "2019-09-05 16:57:39.704206"], ["updated_at", "2019-09-05 16:57:39.704206"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#index as HTML
+  Rendering readings/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered readings/index.html.erb within layouts/application (0.2ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 10ms (Views: 7.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "77dcd358-82e8-4e3a-9bef-c490fc80f80f"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "77dcd358-82e8-4e3a-9bef-c490fc80f80f"], ["location", "Location1"], ["created_at", "2019-09-05 16:57:39.723066"], ["updated_at", "2019-09-05 16:57:39.723066"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "humidity"=>"28", "temperature"=>"55.4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "2ebe3431-32ae-4614-bdd2-4e2f8f023a53"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "2ebe3431-32ae-4614-bdd2-4e2f8f023a53"], ["location", "Location1"], ["created_at", "2019-09-05 16:57:39.736232"], ["updated_at", "2019-09-05 16:57:39.736232"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"abc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "abc"], ["LIMIT", 1]]
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 4ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "4ffc24d8-9824-425f-86d6-fd80b39fddbd"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "4ffc24d8-9824-425f-86d6-fd80b39fddbd"], ["location", "Location1"], ["created_at", "2019-09-05 16:57:39.753257"], ["updated_at", "2019-09-05 16:57:39.753257"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"4ffc24d8-9824-425f-86d6-fd80b39fddbd"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "4ffc24d8-9824-425f-86d6-fd80b39fddbd"], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "715fd031-47d4-4a15-b0f1-5a95855fe093"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "715fd031-47d4-4a15-b0f1-5a95855fe093"], ["location", "Location1"], ["created_at", "2019-09-05 16:57:39.760961"], ["updated_at", "2019-09-05 16:57:39.760961"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"715fd031-47d4-4a15-b0f1-5a95855fe093", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "715fd031-47d4-4a15-b0f1-5a95855fe093"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+Unpermitted parameter: :household_token
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."id" = $1 LIMIT $2[0m  [["id", 48], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 200 OK in 757ms (Views: 0.2ms | ActiveRecord: 5.5ms)
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "3d062bb9-9d2c-464a-ac02-af873d81e66d"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "3d062bb9-9d2c-464a-ac02-af873d81e66d"], ["location", "Location1"], ["created_at", "2019-09-05 16:57:40.523664"], ["updated_at", "2019-09-05 16:57:40.523664"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "13ee7d84-23e8-43c5-9a3f-8a8a9b0e1837"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "13ee7d84-23e8-43c5-9a3f-8a8a9b0e1837"], ["location", "Location1"], ["created_at", "2019-09-05 16:57:40.526651"], ["updated_at", "2019-09-05 16:57:40.526651"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 50], ["tracking_number", 25], ["temperature", 89.01], ["humidity", 41.02], ["battery_charge", 15.06], ["created_at", "2019-09-05 16:57:40.528369"], ["updated_at", "2019-09-05 16:57:40.528369"]]
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"id"=>"26"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "ef559871-2790-43de-a526-2785e4ffdca3"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "ef559871-2790-43de-a526-2785e4ffdca3"], ["location", "Location1"], ["created_at", "2019-09-05 16:57:40.535006"], ["updated_at", "2019-09-05 16:57:40.535006"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "c0e85a9f-5359-4e41-b281-a442853cb9cb"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "c0e85a9f-5359-4e41-b281-a442853cb9cb"], ["location", "Location1"], ["created_at", "2019-09-05 16:57:40.537713"], ["updated_at", "2019-09-05 16:57:40.537713"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 52], ["tracking_number", 27], ["temperature", 78.08], ["humidity", 53.07], ["battery_charge", 26.04], ["created_at", "2019-09-05 16:57:40.539147"], ["updated_at", "2019-09-05 16:57:40.539147"]]
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"household_token"=>"ef559871-2790-43de-a526-2785e4ffdca3", "id"=>"28"}
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "ef559871-2790-43de-a526-2785e4ffdca3"], ["LIMIT", 1]]
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  "readings".* FROM "readings" WHERE "readings"."tracking_number" = $1 LIMIT $2[0m  [["tracking_number", 28], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.9ms)
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "50a4e826-94f2-44c0-b9e3-3c972258f8ae"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "a86a98de-4414-45d0-9303-24b511e8fd99"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" ORDER BY "thermostats"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2019-09-05 16:57:40.591594"], ["updated_at", "2019-09-05 16:57:40.591594"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "thermostats" SET "household_token" = $1, "updated_at" = $2 WHERE "thermostats"."id" = $3[0m  [["household_token", "dummy value"], ["updated_at", "2019-09-05 16:57:40.593240"], ["id", 53]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "dummy value"], ["LIMIT", 1]]
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "DUMMY VALUE"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+---------------------------------------------
+ReadingsControllerTest: test_should_get_index
+---------------------------------------------
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+----------------------------------------------
+ReadingsControllerTest: test_should_get_create
+----------------------------------------------
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+--------------------------------------------
+ReadingsControllerTest: test_should_get_show
+--------------------------------------------
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+----------------------------------------------
+ReadingsControllerTest: test_should_get_create
+----------------------------------------------
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+---------------------------------------------
+ReadingsControllerTest: test_should_get_index
+---------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+--------------------------------------------
+ReadingsControllerTest: test_should_get_show
+--------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+----------------------------------------------
+ReadingsControllerTest: test_should_get_create
+----------------------------------------------
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+---------------------------------------------
+ReadingsControllerTest: test_should_get_index
+---------------------------------------------
+Started GET "/index" for 127.0.0.1 at 2019-09-05 22:33:45 +0530
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+--------------------------------------------
+ReadingsControllerTest: test_should_get_show
+--------------------------------------------
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+----------------------------------------------
+ReadingsControllerTest: test_should_get_create
+----------------------------------------------
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+---------------------------------------------
+ReadingsControllerTest: test_should_get_index
+---------------------------------------------
+Started GET "/readings/index" for 127.0.0.1 at 2019-09-05 22:34:24 +0530
+Processing by ReadingsController#show as HTML
+  Parameters: {"id"=>"index"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 15ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+--------------------------------------------
+ReadingsControllerTest: test_should_get_show
+--------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+---------------------------------------------
+ReadingsControllerTest: test_should_get_index
+---------------------------------------------
+Started GET "/readings/index" for 127.0.0.1 at 2019-09-05 22:35:40 +0530
+Processing by ReadingsController#show as HTML
+  Parameters: {"id"=>"index"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 7ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+----------------------------------------------
+ReadingsControllerTest: test_should_get_create
+----------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+--------------------------------------------
+ReadingsControllerTest: test_should_get_show
+--------------------------------------------
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (1.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "beec6850-52e0-410a-b18d-5c83c34815f2"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "beec6850-52e0-410a-b18d-5c83c34815f2"], ["location", "Location1"], ["created_at", "2019-09-05 21:02:04.207142"], ["updated_at", "2019-09-05 21:02:04.207142"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#index as HTML
+  Rendering readings/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered readings/index.html.erb within layouts/application (0.2ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 11ms (Views: 8.5ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "a926f2e8-bcb5-457b-af70-707b7b1f0a17"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "a926f2e8-bcb5-457b-af70-707b7b1f0a17"], ["location", "Location1"], ["created_at", "2019-09-05 21:02:04.228785"], ["updated_at", "2019-09-05 21:02:04.228785"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "humidity"=>"28", "temperature"=>"55.4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "46fee481-fce5-4094-bd2b-eaef23ea660e"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "46fee481-fce5-4094-bd2b-eaef23ea660e"], ["location", "Location1"], ["created_at", "2019-09-05 21:02:04.243777"], ["updated_at", "2019-09-05 21:02:04.243777"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"abc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "abc"], ["LIMIT", 1]]
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 10ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "5fcaee02-596f-4c77-8c68-43f69beb7b79"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "5fcaee02-596f-4c77-8c68-43f69beb7b79"], ["location", "Location1"], ["created_at", "2019-09-05 21:02:04.259242"], ["updated_at", "2019-09-05 21:02:04.259242"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"5fcaee02-596f-4c77-8c68-43f69beb7b79"}
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "5fcaee02-596f-4c77-8c68-43f69beb7b79"], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "4cd7588b-8f4a-4bda-9608-4a4ef38578cc"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "4cd7588b-8f4a-4bda-9608-4a4ef38578cc"], ["location", "Location1"], ["created_at", "2019-09-05 21:02:04.265546"], ["updated_at", "2019-09-05 21:02:04.265546"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"4cd7588b-8f4a-4bda-9608-4a4ef38578cc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "4cd7588b-8f4a-4bda-9608-4a4ef38578cc"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+Unpermitted parameter: :household_token
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 200 OK in 758ms (Views: 0.2ms | ActiveRecord: 4.8ms)
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "95721b75-0aa5-42d1-887d-90340de2ca2b"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "95721b75-0aa5-42d1-887d-90340de2ca2b"], ["location", "Location1"], ["created_at", "2019-09-05 21:02:05.029559"], ["updated_at", "2019-09-05 21:02:05.029559"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "94e99aec-f56d-4948-ba8f-4845612b1681"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "94e99aec-f56d-4948-ba8f-4845612b1681"], ["location", "Location1"], ["created_at", "2019-09-05 21:02:05.032326"], ["updated_at", "2019-09-05 21:02:05.032326"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.5ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 7], ["tracking_number", 2], ["temperature", 61.09], ["humidity", 25.01], ["battery_charge", 98.02], ["created_at", "2019-09-05 21:02:05.033800"], ["updated_at", "2019-09-05 21:02:05.033800"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"id"=>"3"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "ccca3956-4a5f-4073-8a07-32628afeb5b6"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "ccca3956-4a5f-4073-8a07-32628afeb5b6"], ["location", "Location1"], ["created_at", "2019-09-05 21:02:05.045946"], ["updated_at", "2019-09-05 21:02:05.045946"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "4a6a5dd6-52b1-41b0-bd57-66d597164e33"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "4a6a5dd6-52b1-41b0-bd57-66d597164e33"], ["location", "Location1"], ["created_at", "2019-09-05 21:02:05.048527"], ["updated_at", "2019-09-05 21:02:05.048527"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 9], ["tracking_number", 4], ["temperature", 77.09], ["humidity", 24.05], ["battery_charge", 60.03], ["created_at", "2019-09-05 21:02:05.050096"], ["updated_at", "2019-09-05 21:02:05.050096"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"household_token"=>"ccca3956-4a5f-4073-8a07-32628afeb5b6", "id"=>"5"}
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "ccca3956-4a5f-4073-8a07-32628afeb5b6"], ["LIMIT", 1]]
+  [1m[36mReading Load (0.3ms)[0m  [1m[34mSELECT  "readings".* FROM "readings" WHERE "readings"."tracking_number" = $1 LIMIT $2[0m  [["tracking_number", 5], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "316f6034-0fe5-4142-85bb-c7ab1ae32ca2"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "1cf8182c-9839-4117-9c63-55cc29da86da"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" ORDER BY "thermostats"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2019-09-05 21:02:05.100136"], ["updated_at", "2019-09-05 21:02:05.100136"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "thermostats" SET "household_token" = $1, "updated_at" = $2 WHERE "thermostats"."id" = $3[0m  [["household_token", "dummy value"], ["updated_at", "2019-09-05 21:02:05.101844"], ["id", 10]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "dummy value"], ["LIMIT", 1]]
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "DUMMY VALUE"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "ebba96df-7714-4948-b562-a5234a391b62"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "ebba96df-7714-4948-b562-a5234a391b62"], ["location", "Location1"], ["created_at", "2019-09-06 04:32:19.632381"], ["updated_at", "2019-09-06 04:32:19.632381"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#index as HTML
+  Rendering readings/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered readings/index.html.erb within layouts/application (0.2ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 12ms (Views: 9.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "70becf13-2d24-42f5-8bf6-7c8442eb670e"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "70becf13-2d24-42f5-8bf6-7c8442eb670e"], ["location", "Location1"], ["created_at", "2019-09-06 04:32:19.654454"], ["updated_at", "2019-09-06 04:32:19.654454"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "humidity"=>"28", "temperature"=>"55.4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "adc6e26f-a88c-49c3-b81d-2499a0f72704"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "adc6e26f-a88c-49c3-b81d-2499a0f72704"], ["location", "Location1"], ["created_at", "2019-09-06 04:32:19.668924"], ["updated_at", "2019-09-06 04:32:19.668924"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"abc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "abc"], ["LIMIT", 1]]
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 4ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "09741805-2c01-4894-b372-ba8b0f02740c"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "09741805-2c01-4894-b372-ba8b0f02740c"], ["location", "Location1"], ["created_at", "2019-09-06 04:32:19.680585"], ["updated_at", "2019-09-06 04:32:19.680585"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"09741805-2c01-4894-b372-ba8b0f02740c"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "09741805-2c01-4894-b372-ba8b0f02740c"], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 400 Bad Request in 3ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "8962428f-7d33-4422-9da9-611e8929c824"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "8962428f-7d33-4422-9da9-611e8929c824"], ["location", "Location1"], ["created_at", "2019-09-06 04:32:19.690911"], ["updated_at", "2019-09-06 04:32:19.690911"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"8962428f-7d33-4422-9da9-611e8929c824", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "8962428f-7d33-4422-9da9-611e8929c824"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+Unpermitted parameter: :household_token
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+Completed 200 OK in 33ms (Views: 0.2ms | ActiveRecord: 5.5ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "dae4d568-8a9a-4c91-8208-b2c8962416b1"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "dae4d568-8a9a-4c91-8208-b2c8962416b1"], ["location", "Location1"], ["created_at", "2019-09-06 04:32:19.730872"], ["updated_at", "2019-09-06 04:32:19.730872"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "96ffb105-12f1-4e46-8fef-1fd91fdb6971"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "96ffb105-12f1-4e46-8fef-1fd91fdb6971"], ["location", "Location1"], ["created_at", "2019-09-06 04:32:19.734412"], ["updated_at", "2019-09-06 04:32:19.734412"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 7], ["tracking_number", 2], ["temperature", 90.07], ["humidity", 58.04], ["battery_charge", 74.04], ["created_at", "2019-09-06 04:32:19.736163"], ["updated_at", "2019-09-06 04:32:19.736163"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"id"=>"3"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "c74c9f75-80df-4274-9098-3890bd8f2238"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "c74c9f75-80df-4274-9098-3890bd8f2238"], ["location", "Location1"], ["created_at", "2019-09-06 04:32:19.743109"], ["updated_at", "2019-09-06 04:32:19.743109"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "e71731d0-046d-48d2-8510-d9d9725ea3b2"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "e71731d0-046d-48d2-8510-d9d9725ea3b2"], ["location", "Location1"], ["created_at", "2019-09-06 04:32:19.746445"], ["updated_at", "2019-09-06 04:32:19.746445"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 9], ["tracking_number", 4], ["temperature", 69.04], ["humidity", 34.01], ["battery_charge", 79.09], ["created_at", "2019-09-06 04:32:19.748339"], ["updated_at", "2019-09-06 04:32:19.748339"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"household_token"=>"c74c9f75-80df-4274-9098-3890bd8f2238", "id"=>"5"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "c74c9f75-80df-4274-9098-3890bd8f2238"], ["LIMIT", 1]]
+  [1m[36mReading Load (0.3ms)[0m  [1m[34mSELECT  "readings".* FROM "readings" WHERE "readings"."tracking_number" = $1 LIMIT $2[0m  [["tracking_number", 5], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "d824d5b9-c100-451e-ac75-755bf0d73712"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "4fd6cb4b-9d2d-426b-ab1b-ee0fe2058824"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Load (0.2ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" ORDER BY "thermostats"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "thermostats" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2019-09-06 04:32:20.563097"], ["updated_at", "2019-09-06 04:32:20.563097"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "thermostats" SET "household_token" = $1, "updated_at" = $2 WHERE "thermostats"."id" = $3[0m  [["household_token", "dummy value"], ["updated_at", "2019-09-06 04:32:20.564718"], ["id", 10]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "dummy value"], ["LIMIT", 1]]
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "DUMMY VALUE"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (1.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "94af5d8f-96a9-4d9f-9a0c-fe2dec9ca742"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "94af5d8f-96a9-4d9f-9a0c-fe2dec9ca742"], ["location", "Location1"], ["created_at", "2019-09-06 05:39:10.646488"], ["updated_at", "2019-09-06 05:39:10.646488"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#index as HTML
+  Rendering readings/index.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered readings/index.html.erb within layouts/application (0.2ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 12ms (Views: 9.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "6573503c-3236-4fd7-baf9-cad5d279af03"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "6573503c-3236-4fd7-baf9-cad5d279af03"], ["location", "Location1"], ["created_at", "2019-09-06 05:39:10.671580"], ["updated_at", "2019-09-06 05:39:10.671580"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "humidity"=>"28", "temperature"=>"55.4"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "b0caeed6-83cb-4285-b757-cc34a27413ce"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "b0caeed6-83cb-4285-b757-cc34a27413ce"], ["location", "Location1"], ["created_at", "2019-09-06 05:39:10.689418"], ["updated_at", "2019-09-06 05:39:10.689418"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"abc", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "abc"], ["LIMIT", 1]]
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 5ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "fd67da5a-85e2-4a5a-a4b4-4e1c51936511"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "fd67da5a-85e2-4a5a-a4b4-4e1c51936511"], ["location", "Location1"], ["created_at", "2019-09-06 05:39:10.703124"], ["updated_at", "2019-09-06 05:39:10.703124"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"fd67da5a-85e2-4a5a-a4b4-4e1c51936511"}
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "fd67da5a-85e2-4a5a-a4b4-4e1c51936511"], ["LIMIT", 1]]
+Filter chain halted as :parameters_validator rendered or redirected
+Completed 400 Bad Request in 3ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "18aa5f1d-9baf-4c2a-af62-87ecd9b87eab"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "18aa5f1d-9baf-4c2a-af62-87ecd9b87eab"], ["location", "Location1"], ["created_at", "2019-09-06 05:39:10.714138"], ["updated_at", "2019-09-06 05:39:10.714138"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"1450", "household_token"=>"18aa5f1d-9baf-4c2a-af62-87ecd9b87eab", "humidity"=>"28", "temperature"=>"55.4"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "18aa5f1d-9baf-4c2a-af62-87ecd9b87eab"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+Unpermitted parameter: :household_token
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+Unpermitted parameter: :household_token
+Completed 200 OK in 35ms (Views: 0.2ms | ActiveRecord: 6.5ms)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "f8122aec-ed5b-434f-b23e-03518db8ff2d"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "f8122aec-ed5b-434f-b23e-03518db8ff2d"], ["location", "Location1"], ["created_at", "2019-09-06 05:39:10.757244"], ["updated_at", "2019-09-06 05:39:10.757244"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "31fd29fc-2f74-4dff-8fba-3f024c37cb1f"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "31fd29fc-2f74-4dff-8fba-3f024c37cb1f"], ["location", "Location1"], ["created_at", "2019-09-06 05:39:10.761680"], ["updated_at", "2019-09-06 05:39:10.761680"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 7], ["tracking_number", 2], ["temperature", 92.02], ["humidity", 16.08], ["battery_charge", 51.08], ["created_at", "2019-09-06 05:39:10.764206"], ["updated_at", "2019-09-06 05:39:10.764206"]]
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"id"=>"3"}
+Filter chain halted as :set_thermostat rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "3112c680-ca80-4f9d-a760-31f8a3500310"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "3112c680-ca80-4f9d-a760-31f8a3500310"], ["location", "Location1"], ["created_at", "2019-09-06 05:39:10.772452"], ["updated_at", "2019-09-06 05:39:10.772452"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "93af877b-dc25-475c-8f6c-66e589fe561b"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("household_token", "location", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["household_token", "93af877b-dc25-475c-8f6c-66e589fe561b"], ["location", "Location1"], ["created_at", "2019-09-06 05:39:10.777064"], ["updated_at", "2019-09-06 05:39:10.777064"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "readings" ("thermostat_id", "tracking_number", "temperature", "humidity", "battery_charge", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["thermostat_id", 9], ["tracking_number", 4], ["temperature", 56.03], ["humidity", 41.08], ["battery_charge", 87.01], ["created_at", "2019-09-06 05:39:10.779372"], ["updated_at", "2019-09-06 05:39:10.779372"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by ReadingsController#show as HTML
+  Parameters: {"household_token"=>"3112c680-ca80-4f9d-a760-31f8a3500310", "id"=>"5"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "3112c680-ca80-4f9d-a760-31f8a3500310"], ["LIMIT", 1]]
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  "readings".* FROM "readings" WHERE "readings"."tracking_number" = $1 AND "readings"."thermostat_id" = $2 LIMIT $3[0m  [["tracking_number", 5], ["thermostat_id", 8], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSelect nextval('readings_id_seq')[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "cfe53bf0-9cf5-4ba0-a45a-37d649b83df2"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "f471e685-54e8-4eea-88bc-664925194675"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  "thermostats".* FROM "thermostats" ORDER BY "thermostats"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "thermostats" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2019-09-06 05:39:11.602965"], ["updated_at", "2019-09-06 05:39:11.602965"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "thermostats" SET "household_token" = $1, "updated_at" = $2 WHERE "thermostats"."id" = $3[0m  [["household_token", "dummy value"], ["updated_at", "2019-09-06 05:39:11.604684"], ["id", 10]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "dummy value"], ["LIMIT", 1]]
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" = $1 LIMIT $2[0m  [["household_token", "DUMMY VALUE"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "thermostats" WHERE "thermostats"."household_token" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
